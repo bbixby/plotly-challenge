@@ -1,6 +1,5 @@
 // Set the URL to import the data json
 const url = "https://raw.githubusercontent.com/bbixby/plotly-challenge/master/data/samples.json";
-var sampleData
 
 // Fetch the JSON data and console log it
 d3.json(url).then((data) => {
@@ -14,8 +13,7 @@ d3.json(url).then((data) => {
     console.log(samples);
 });
 
-// Pull options for Test Subject ID No dropdown
-//function to init page and populate dropdown
+// Initialize page with Test Subject ID dropdown options and display data for first ID
 function init() {
     // Grab a reference to the dropdown select element
     var dropdown = d3.select("#selDataset");
@@ -35,6 +33,7 @@ function init() {
     });
 };
 
+//Populate the Demographic Info section based on selected ID
 function buildDemos(ID) {
     d3.json(url).then(function (data) {
     var metadata = data.metadata;
@@ -50,6 +49,7 @@ function buildDemos(ID) {
     });
 };
 
+//on ID dropwdown change, rebuild plots
 function optionChanged(newID) {
     //     // Fetch new data each time a new sample is selected
     buildDemos(newID);
