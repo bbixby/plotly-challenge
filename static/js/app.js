@@ -56,7 +56,8 @@ function buildPlots(ID) {
         var samplePlot = plotData.samples.filter(plotID => plotID.id == ID)[0];
         //console.log(samplePlot);
         //slice top 10 of each samples data: otu_ids, otu_labels, and sample_values
-        var slice_otu_ids = samplePlot.otu_ids.slice(0, 10);
+        //map otu_ids to string with OTU label
+        var slice_otu_ids = samplePlot.otu_ids.slice(0, 10).map(id => "OTU "+id.toString());
         var slice_otu_labels = samplePlot.otu_labels.slice(0, 10);
         var slice_sample_values = samplePlot.sample_values.slice(0, 10);
         
@@ -76,7 +77,7 @@ function buildPlots(ID) {
 
         var barLayout = {
             title: 'Top 10 OTU Results',
-            showlegend: false
+            showlegend: false,
         };
 
         Plotly.newPlot('bar', barData, barLayout);
