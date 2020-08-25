@@ -2,16 +2,16 @@
 const url = "https://raw.githubusercontent.com/bbixby/plotly-challenge/master/data/samples.json";
 
 // Fetch the JSON data and console log it
-d3.json(url).then((data) => {
-    var sampleData = data;
-    console.log(sampleData);
-    var metadata = data.metadata;
-    console.log(metadata);
-    var names = data.names;
-    console.log(names);
-    var samples = data.samples;
-    console.log(samples);
-});
+// d3.json(url).then((data) => {
+//     var sampleData = data;
+//     console.log(sampleData);
+//     var metadata = data.metadata;
+//     console.log(metadata);
+//     var names = data.names;
+//     console.log(names);
+//     var samples = data.samples;
+//     console.log(samples);
+// });
 
 // Initialize page with Test Subject ID dropdown options and display data for first ID
 function init() {
@@ -76,12 +76,35 @@ function buildPlots(ID) {
         var barData = [traceBar];
 
         var barLayout = {
-            title: 'Top 10 OTU Results',
+            title: 'Top 10 Microbes (OTUs) Found',
             showlegend: false,
         };
 
         Plotly.newPlot('bar', barData, barLayout);
-        console.log(barData);
+        //console.log(barData);
+
+        //BUBBLE CHART
+        var traceBubble = {
+            type: 'bubble',
+            x: slice_otu_ids,
+            y: slice_sample_values,
+            text: slice_otu_labels,
+            mode: 'markers',
+            marker: {
+                color: slice_otu_ids,
+                size: slice_sample_values
+              }
+        };
+
+        var bubbleData = [traceBubble];
+
+        var bubbleLayout = {
+            title: "Top 10 Microbes Bubble Chart",
+            x: "OTU ID",
+            pointStyle: "circle"
+        }
+
+        Plotly.newPlot('bubble', bubbleData, bubbleLayout);
     });
 };
 
