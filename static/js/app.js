@@ -88,12 +88,12 @@ function buildPlots(ID) {
             type: 'bubble',
             x: slice_otu_ids,
             y: slice_sample_values,
-            text: slice_otu_labels,
             mode: 'markers',
             marker: {
                 color: slice_otu_ids,
                 size: slice_sample_values
-              }
+              },
+            text: slice_otu_labels
         };
 
         var bubbleData = [traceBubble];
