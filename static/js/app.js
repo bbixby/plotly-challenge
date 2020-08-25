@@ -84,13 +84,15 @@ function buildPlots(ID) {
         //console.log(barData);
 
         //BUBBLE CHART
+        var otu_ids = samplePlot.otu_ids.slice(0, 10);
         var traceBubble = {
             type: 'bubble',
             x: slice_otu_ids,
             y: slice_sample_values,
             mode: 'markers',
             marker: {
-                color: slice_otu_ids,
+                color: otu_ids,
+                colorscale: 'Viridis',
                 size: slice_sample_values
               },
             text: slice_otu_labels
@@ -105,6 +107,31 @@ function buildPlots(ID) {
         }
 
         Plotly.newPlot('bubble', bubbleData, bubbleLayout);
+
+        //GAUGE CHART
+        //find the wash frequency variable
+        // var metadata = plotData.metadata.filter(plotID => plotID.id == ID)[0];
+        // var washFreq = metadata.wfreq;
+        
+        // //set up the Gauge data
+        // var traceGauge = {
+        //     type = 'indicator',
+        //     mode = 'gauge+number',
+        //     value: washFreq,
+        //     axis: { range: [0, 9], tickwidth: 1, tickcolor: '#1978B5' }
+        // };
+        
+        // var gaugeData = [traceGauge];
+
+        // var gaugeLayout = {
+        //     title: {
+        //         text: "Bellybutton Wash Frequency"
+        //     }
+        // };
+
+        // Plotly.newPlot('gauge', gaugeData, gaugeLayout);
+
+
     });
 };
 
