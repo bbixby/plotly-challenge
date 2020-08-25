@@ -30,6 +30,7 @@ function init() {
     var firstID = IDs[0];
     //build the plots with the firstID
     buildDemos(firstID);
+    buildPlots(firstID);
     });
 };
 
@@ -42,10 +43,44 @@ function buildDemos(ID) {
     //clear any previous metadata
     d3.select('#sample-metadata').html('');
     //add each key value pair from metaData
-    Object.entries(filteredDemo).forEach(([key, value]) => {
-        d3.select('#sample-metadata')
-        .append('p').text(`${key}: ${value}`);
+        Object.entries(filteredDemo).forEach(([key, value]) => {
+            d3.select('#sample-metadata')
+            .append('p').text(`${key}: ${value}`);
+        });
     });
+};
+
+function buildPlots(ID) {
+    d3.json(url).then(function(plotData) {
+        //filter samples data to ID for plotting
+        var samplePlot = plotData.samples.filter(plotID => plotID.id == ID)[0];
+        //console.log(samplePlot);
+        //slice top 10 of each samples data: otu_ids, otu_labels, and sample_values
+        var slice_otu_ids = samplePlot.otu_ids.slice(0, 10);
+        var slice_otu_labels = samplePlot.otu_labels.slice(0, 10);
+        var slice_sample_values = samplePlot.sample_values.slice(0, 10);
+        
+        //BAR CHART plot
+        var traceBar = {
+            type: 'bar',
+            x: slice_sample_values.reverse(),
+            y: slice_otu_ids.reverse(),
+            text: slice_otu_labels.reverse(),
+            marker: {
+                color: '#1978B5',
+              },
+            orientation: 'h'
+        };
+
+        var barData = [traceBar];
+
+        var barLayout = {
+            title: 'Top 10 OTU Results',
+            showlegend: false
+        };
+
+        Plotly.newPlot('bar', barData, barLayout);
+        console.log(barData);
     });
 };
 
@@ -53,6 +88,7 @@ function buildDemos(ID) {
 function optionChanged(newID) {
     //     // Fetch new data each time a new sample is selected
     buildDemos(newID);
+    buildPlots(newID);
   };
 
 //run init to start
