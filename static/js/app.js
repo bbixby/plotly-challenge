@@ -110,28 +110,37 @@ function buildPlots(ID) {
 
         //GAUGE CHART
         //find the wash frequency variable
-        // var metadata = plotData.metadata.filter(plotID => plotID.id == ID)[0];
-        // var washFreq = metadata.wfreq;
+        var metadata = plotData.metadata.filter(plotID => plotID.id == ID)[0];
+        var washFreq = metadata.wfreq;
+        console.log(washFreq);
+
+        var traceGauge = {
+            domain: { x: [0, 1], y: [0, 1] },
+            value: washFreq,
+            title: { text: 'Bellybutton WashFrequency'},
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+                axis: { range: [null, 9] },
+                steps: [
+                    { range: [0, washFreq], color: "lightgray" }
+                ],
+                    threshold: {
+                    line: { color: "red", width: 4 },
+                    thickness: 0.75,
+                        value: washFreq
+                }
+            }
+        };
+
+        var gaugeData = [traceGauge];
+
+        var gaugeLayout = {
+            width: 600, height: 450, margin: { t: 0, b: 0 }
+        };
+
+        Plotly.newPlot('gauge', gaugeData, gaugeLayout);
         
-        // //set up the Gauge data
-        // var traceGauge = {
-        //     type = 'indicator',
-        //     mode = 'gauge+number',
-        //     value: washFreq,
-        //     axis: { range: [0, 9], tickwidth: 1, tickcolor: '#1978B5' }
-        // };
-        
-        // var gaugeData = [traceGauge];
-
-        // var gaugeLayout = {
-        //     title: {
-        //         text: "Bellybutton Wash Frequency"
-        //     }
-        // };
-
-        // Plotly.newPlot('gauge', gaugeData, gaugeLayout);
-
-
     });
 };
 
@@ -141,6 +150,10 @@ function optionChanged(newID) {
     buildDemos(newID);
     buildPlots(newID);
   };
+
+//d3.select('#selDataset').on('change', {
+  //buildDemos(this.value)
+//})
 
 //run init to start
 init();
