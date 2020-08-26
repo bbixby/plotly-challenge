@@ -78,6 +78,8 @@ function buildPlots(ID) {
         var barLayout = {
             title: 'Top 10 Microbes (OTUs) Found',
             showlegend: false,
+            width: 600,
+            height: 400
         };
 
         Plotly.newPlot('bar', barData, barLayout);
@@ -123,7 +125,7 @@ function buildPlots(ID) {
             gauge: {
                 axis: { range: [null, 9] },
                 steps: [
-                    { range: [0, washFreq], color: "lightgray" }
+                    { range: [0, washFreq], color: '#1978B5' }
                 ],
                     threshold: {
                     line: { color: "red", width: 4 },
@@ -136,7 +138,7 @@ function buildPlots(ID) {
         var gaugeData = [traceGauge];
 
         var gaugeLayout = {
-            width: 600, height: 450, margin: { t: 0, b: 0 }
+            width: 500, height: 400, margin: { t: 0, b: 0 }
         };
 
         Plotly.newPlot('gauge', gaugeData, gaugeLayout);
