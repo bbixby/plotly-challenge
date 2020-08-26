@@ -87,7 +87,7 @@ function buildPlots(ID) {
         var otu_ids = samplePlot.otu_ids.slice(0, 10);
         var traceBubble = {
             type: 'bubble',
-            x: slice_otu_ids,
+            x: otu_ids,
             y: slice_sample_values,
             mode: 'markers',
             marker: {
